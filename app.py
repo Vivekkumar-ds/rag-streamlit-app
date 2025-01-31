@@ -5,8 +5,12 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 import os
 
-# Set your OpenAI API key
-os.environ["OPENAI_API_KEY"] = "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"
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from the .env file
+
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Load content from content.txt
 with open("content.txt", "r", encoding="utf-8") as file:

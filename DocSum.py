@@ -6,8 +6,12 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 import os
 
-# Set your OpenAI API key
-os.environ["OPENAI_API_KEY"] = "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"
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from the .env file
+
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Initialize FastAPI app
 app = FastAPI(title="RAG-based Q&A API", version="1.0")
@@ -20,7 +24,7 @@ with open("content.txt", "r", encoding="utf-8") as file:
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
 chunks = text_splitter.split_text(document_text)
 
-# Generate embeddings and store them in FAISS
+# Generate embeddings and store them in FAISS 
 embeddings = OpenAIEmbeddings()
 vector_db = FAISS.from_texts(chunks, embeddings)
 
